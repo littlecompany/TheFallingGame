@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.littlecompany.thefallinggame;
+package com.littlecompany.thefallinggame.android.client;
 
 public final class R {
     public static final class attr {

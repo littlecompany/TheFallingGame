@@ -1,4 +1,6 @@
-package com.littlecompany.thefallinggame;
+package com.littlecompany.thefallinggame.android.client;
+
+import com.littlecompany.thefallinggame.android.client.R;
 
 import android.os.Bundle;
 import android.app.Activity;
