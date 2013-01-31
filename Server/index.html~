@@ -7,23 +7,18 @@
 	    console.log('received message from server - ' ,data);
 	    socket.emit('my other event', { my: 'data' });
     });
-    	socket.on('map', function(data) {
+    socket.on('map', function(data) {
+	   	console.log(data);
 		var c=document.getElementById("myCanvas");
 		var ctx=c.getContext("2d");
 		var imageData = ctx.createImageData(data["xl"], data["yl"]);
-		var index = 0
-		for(var x = 0; x < data["xl"]; x++) {
-			for(var y = 0; y < data["yl"]; y++) {
-				var col = 255 * data["map"][(x * data["yl"]) + y]
-				if(col < 0)
-					col += 255;
-				col = Math.floor(col);
-				imageData.data[index] = col;
-				imageData.data[index + 1] = col;
-				imageData.data[index + 2] = col;
-				imageData.data[index + 3] = col;
-				index += 4;
-			}
+		for(var index = 0; index < data.xl * data.yl * 4; index += 4) {
+			var col = 255 * data.map[index / 4]
+			col = Math.floor(col);
+			imageData.data[index] = col;
+			imageData.data[index + 1] = col;
+			imageData.data[index + 2] = col;
+			imageData.data[index + 3] = 255;
 		}
 		ctx.putImageData(imageData, 0, 0);
 	});

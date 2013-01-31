@@ -1,18 +1,20 @@
 http = require 'http'
 websocket = require 'socket.io'
 fs = require 'fs'
-perlin = require './perlin-noise'
+SimplexNoise = require 'simplex-noise'
 xLen = 1000
 yLen = 1000
-console.log perlin
+
 genMap = (x,y) ->
-	z = Math.random()
+	simplex = new SimplexNoise(Math.random)
 	map = []
-	for cy in [0..y]
-		for cx in [0..x]
-			map.push (perlin.noise cx / x,cy / y,z)
+	for cx in [0..x - 1]
+		for cy in [0..y - 1]
+			noise = simplex.noise2D (cx + 100) / 100, cy / 100
+			map.push noise
 	map
 map = genMap xLen,yLen
+
 app = (http.createServer (req, res) ->
 	console.log "http connection"
 	fs.readFile __dirname + '\\index.html', (err, html) ->
